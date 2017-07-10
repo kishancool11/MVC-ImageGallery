@@ -1,0 +1,104 @@
+﻿@model ImageGallery.ViewModel.ImageEditorViewModel
+
+@using (Html.BeginForm("Create", "GalleryAdmin", FormMethod.Post, new { enctype = "multipart/form-data", Id="frmAddImage" }))
+{
+    <div class="form-horizontal">
+        <h4>Add Image Here</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Caption, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Caption, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Caption, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-2">
+                <label class="pull-right">  Image:</label>
+            </div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(m => m.FileImage, new { type = "file" })
+                @Html.ValidationMessageFor(model => model.FileImage, "", new { @class = "text-danger" })
+            </div>
+        </div> 
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="btnAddImage" value="Create" class="btn btn-primary" />
+            </div>
+          
+        </div> 
+    </div>
+}
+
+
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#btnAddImage").on("click", function (e) {
+            var $form = $("#frmAddImage");
+            $form.validate();
+            if (!$form.valid()) {
+                return false;
+            }
+
+            e.preventDefault();
+            var formData = new FormData();
+            var data = $form.find(':input[name]:not(:disabled)').filter(':not(:checkbox), :checked').map(function () {
+                var input = $(this);
+
+                if (input.attr('type') == "file") {
+
+                    formData.append(input.attr('name'), input[0].files[0]);
+                    return {
+                        name: input.attr('name'),
+                        value: input[0].files[0]
+                    };
+                } else {
+                    formData.append(input.attr('name'), input.val());
+                    return {
+                        name: input.attr('name'),
+                        value: input.val()
+                    };
+                }
+            }).get();
+
+            $.ajax({
+                url: '/GalleryAdmin/Create',
+                data: formData,
+                type: "POST",
+                contentType: false,
+                processData: false,
+                success: function (data, textStatus, jqXHR) { 
+                    if (data.success == true) {
+                        $("#successmessage").html(data.Caption + " has been added successfully").show().delay(5000).fadeOut();
+                        $("#ListPanel").load($("#ListPanel").data("url"));
+                        $("#ImagePanel").load($("#ImagePanel").data("url"));
+                        return true;
+                    }
+                    if (data.ExceptionMessage) {
+                        $("#errormessage").html(data.ExceptionMessage).show().delay(5000).fadeOut();
+                        return false;
+                    }
+                    if (data.ValidationMessage) {
+                        $("#errormessage").html(data.ExceptionMessage).show().delay(5000).fadeOut();
+                        return false;
+                    }
+                    return false;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $("#errormessage").html(textStatus).show().delay(5000).fadeOut();
+                },
+                complete: function (jqXHR, textStatus) {
+                }
+            });
+
+        });
+    });
+</script>

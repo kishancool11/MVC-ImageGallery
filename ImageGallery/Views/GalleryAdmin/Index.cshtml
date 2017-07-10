@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Gallery Admin";
+}
+
+<h2>Gallery Admin</h2>
+<div id="ImagePanel" data-url="@Url.Action("Create")">
+    @Html.Action("Create")
+</div>
+<div class="row">
+    <div class="col-md-offset-2 col-md-10">
+        <div class="alert alert-danger" style="display:none" role="alert" id="errormessage"></div>
+        <div class="alert alert-success" style="display:none" role="alert" id="successmessage"></div>
+    </div>
+</div>
+<hr />
+<div id="ListPanel" data-url="@Url.Action("_List")">
+    @Html.Action("_List")
+</div>
