@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@Page.Title</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="~/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/plugins/jGlow/jquery.jgrowl.min.css" rel="stylesheet" /> 
+    <link href="~/plugins/metisMenu/metisMenu.css" rel="stylesheet" />
+     <link href="~/Content/sb-admin-2.css" rel="stylesheet" />
+    <link href="~/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-responsive/dataTables.responsive.css" rel="stylesheet" />
+    <link href="~/plugins/bootstrap/css/bootstrap-datepicker.min.css" rel="stylesheet" />   
+    <link href="~/Content/custom.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery -->
+    <script src="~/plugins/jquery/jquery.min.js"></script> 
+
+    <script src="~/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    <script src="~/plugins/Common/bootbox.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/plugins/metisMenu/metisMenu.min.js"></script>  
+    <script src="~/plugins/jGlow/jquery.jgrowl.min.js"></script>
+    <script src="~/plugins/jquery/jsrender.min.js"></script>
+    <script src="~/plugins/bootstrap/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/Scripts/sb-admin-2.js"></script>
+    <script src="~/Scripts/lib/common.js"></script>
+    <script src="~/Scripts/lib/BootBoxManager.js"></script>
+
+    <script src="~/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/plugins/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="~/plugins/datatables-responsive/dataTables.responsive.js"></script>
+    @RenderSection("head", required: false)
+</head>
+<body>
+
+    <div id="wrapper">
+        @Html.Partial("_Menu") 
+
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @RenderBody()
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+       
+    </div>
+
+
+    <div class="modalloader"></div>
+    <div id="test2" class="test2 bottom-left"></div>
+</body>
+</html>
